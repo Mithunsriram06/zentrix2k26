@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+@layer base {
+  * {
+    font-family: 'Rajdhani', 'Chakra Petch', sans-serif;
+  }
+  
+  h1, h2, h3, .font-heading {
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  body {
+    background-color: #000000;
+    color: #e2e8f0;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom Cyber Smoke Background */
+.tech-smoke-bg {
+  background-color: #000000;
+  background-image: 
+    radial-gradient(ellipse at 10% 10%, rgba(255, 0, 85, 0.25) 0%, rgba(180, 0, 40, 0.15) 35%, transparent 70%),
+    radial-gradient(ellipse at 90% 90%, rgba(0, 240, 255, 0.25) 0%, rgba(0, 114, 255, 0.15) 35%, transparent 70%),
+    radial-gradient(circle at 50% 50%, rgba(10, 10, 18, 0.8) 0%, rgba(0, 0, 0, 1) 100%);
+  background-attachment: fixed;
+}
+
+/* Tech Grid Line Overlay */
+.cyber-grid-overlay {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #151828;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 0, 85, 0.4);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ff0055;
+  box-shadow: 0 0 10px #ff0055;
+}
+
+/* Neon utilities */
+.neon-glow-red {
+  box-shadow: 0 0 15px rgba(255, 0, 85, 0.6), inset 0 0 15px rgba(255, 0, 85, 0.2);
+}
+.neon-glow-red-strong {
+  box-shadow: 0 0 25px rgba(255, 0, 85, 0.9), 0 0 50px rgba(255, 0, 85, 0.5);
+}
+
+.neon-glow-blue {
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.6), inset 0 0 15px rgba(0, 240, 255, 0.2);
+}
+
+.glass-card {
+  background: rgba(8, 10, 18, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* ULTIMATE SINGLE-PAGE PRINT STYLING */
+@media print {
+  /* 1. Collapse all page containers & background layout heights */
+  html, body, #root {
+    background: #000000 !important;
+    color: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* 2. Completely eliminate non-printable components */
+  header, footer, section, nav, .no-print {
+    display: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* 3. Strip layout constraints from fixed modal overlays */
+  .fixed, .backdrop-blur-xl, .inset-0, .overflow-y-auto {
+    position: static !important;
+    background: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .my-8, .my-4, .py-8 {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* 4. Display ONLY the ticket pass card as 1 single page block */
+  .printable-ticket-card {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    max-width: 680px !important;
+    margin: 0 auto !important;
+    padding: 24px !important;
+    background: #05070f !important;
+    color: #ffffff !important;
+    border: 2px solid #ff0055 !important;
+    box-shadow: none !important;
+    page-break-inside: avoid !important;
+    page-break-before: avoid !important;
+    page-break-after: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* 5. Force A4 Portrait 1-Page Margin */
+  @page {
+    size: portrait;
+    margin: 10mm;
+  }
+}
