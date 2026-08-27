@@ -229,6 +229,47 @@ app.get('/api/registrations', (req, res) => {
   });
 });
 
+// 3. Clear All Registrations (Admin Action)
+app.post('/api/clear-registrations', (req, res) => {
+  const { passcode } = req.body;
+  if (passcode !== '$zentrixQ_2k26') {
+    return res.status(401).json({ error: 'Unauthorized passcode' });
+  }
+
+  db.run('DELETE FROM registrations', [], function (err) {
+    if (err) {
+      console.error('SQL Error clearing database:', err);
+      return res.status(500).json({ error: 'Failed to clear database.' });
+    }
+    console.log('All SQL registrations cleared by Admin.');
+    res.json({ message: 'All registration records deleted successfully from SQL Database.' });
+  });
+});
+
+// 4. Delete Specific Selected Registrations (Admin Action)
+app.post('/api/delete-registrations', (req, res) => {
+  const { passcode, ticketIds } = req.body;
+  if (passcode !== '$zentrixQ_2k26') {
+    return res.status(401).json({ error: 'Unauthorized passcode' });
+  }
+
+  if (!ticketIds || !Array.isArray(ticketIds) || ticketIds.length === 0) {
+    return res.status(400).json({ error: 'No ticket IDs specified for deletion' });
+  }
+
+  const placeholders = ticketIds.map(() => '?').join(',');
+  const query = `DELETE FROM registrations WHERE ticket_id IN (${placeholders})`;
+
+  db.run(query, ticketIds, function (err) {
+    if (err) {
+      console.error('SQL Error deleting selected registrations:', err);
+      return res.status(500).json({ error: 'Failed to delete records.' });
+    }
+    console.log(`Deleted ${this.changes} registration record(s) by Admin.`);
+    res.json({ message: `Successfully deleted ${this.changes} record(s).` });
+  });
+});
+
 // Start Express Backend
 app.listen(PORT, () => {
   console.log(`Zentrix 2k26 Express API Server running on port ${PORT}`);
