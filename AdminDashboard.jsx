@@ -14,7 +14,7 @@ export default function AdminDashboard({ onBack }) {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (passcode === 'zentrix2026' || passcode === 'admin123' || passcode === 'admin') {
+    if (passcode === 'zentrix2026') {
       setIsAuthenticated(true);
       setPassError('');
       fetchRegistrations();
